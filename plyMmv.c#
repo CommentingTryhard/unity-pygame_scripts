@@ -9,12 +9,12 @@ public class Character : Monobehaviour //monobehaviour required for code. charac
     
     void Start()
     {
-        CharacterController = GetComponent<CharacterController>();
+        characterController = GetComponent<CharacterController>();
     }
     void Update()
     {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical"));
       
-        CHaracterController.Move(move * Time.deltatime * Speed)
+        characterController.Move(move * Time.deltatime * Speed)
     }
 }
