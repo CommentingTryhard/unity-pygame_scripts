@@ -3,7 +3,7 @@ using System; //unity sys loader
 public class Character : Monobehaviour //monobehaviour required for code. character should be connector
 {
 
-    private CharacterController characterController;
+    
     
     public float Speed _ 5f; //spd variable
     
