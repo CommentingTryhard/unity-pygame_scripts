@@ -3,18 +3,35 @@ using System; //unity sys loader
 public class Character : Monobehaviour //monobehaviour required for code. character should be connector
 {
 
+    public Rigidbody2D rb;
     
-    
-    public float Speed _ 5f; //spd variable
+    public float Speed = 5f; //spd variable
+    private bool isJumpPressed = false;
+    private bool isMoving = False;
     
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        rb = GetComponenet<Rigidbody2D>();
     }
     void Update()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical"));
-      
+        // Vector3 move = new Vector3(Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical"));
+        isJumpPressed = Input.GetButtonDown("Jump");
         characterController.Move(move * Time.deltatime * Speed)
     }
+    void FixedUpdate()
+    {
+        if (isJumpPressed)
+        {
+            rb.velocity = new Vector3(0, 10, 0)
+            isMoving = true;
+            Debug.log("jump");
+        }
+        if (isMoving)
+        {
+            time = time + Time.fixedDeltaTime;             
+            if ( time > 10.0f)
+            {
+                Debug.log(gameObject.transform.position.y + " : " + time);    
+                time = 0.0f;
 }
