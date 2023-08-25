@@ -1,0 +1,65 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Character : MonoBehaviour //monobehaviour required for code. character should be connector
+{
+    // components gaeee
+    public Rigidbody2D rb;
+    
+    // player movements
+
+    float walkSpeed = 4.0f;
+    float SpeedLimiter = 0.7f;
+    float inputVertical;
+    float inputHorizontal;
+    bool facingright = true;
+
+    void Start()
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+    }
+    void Update()
+    {
+        inputHorizontal = Input.GetAxisRaw("Horizontal");
+        inputVertical = Input.GetAxisRaw("Vertical");
+        // CharacterController.Move(move * Time.DeltaTime * Speed);
+    }
+    void FixedUpdate()
+    {
+        if (inputHorizontal != 0 || inputVertical != 0)
+        {
+            if (inputHorizontal != 0 && inputVertical != 0)
+            {
+                rb.velocity = new Vector2(inputHorizontal *= SpeedLimiter, inputVertical *= SpeedLimiter);
+            }
+            rb.velocity = new Vector2(inputHorizontal * walkSpeed, inputVertical * walkSpeed);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0f, 0f);
+        }
+
+        if (inputHorizontal !=0)
+        {
+            rb.AddForce(new Vector2(inputHorizontal * walkSpeed, 0f));
+        }
+        if (inputHorizontal > 0 && !facingright)
+        {
+            Flip();
+        }
+        if (inputHorizontal < 0 && facingright)
+        {
+            Flip();
+        }
+    }
+    void Flip()
+    {
+        Vector3 currentScale = gameObject.transform.localScale;
+        currentScale.x *= -1;
+        gameObject.transform.localScale = currentScale;
+
+        facingright = !facingright;
+    }
+
+} 
